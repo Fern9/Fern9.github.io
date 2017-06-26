@@ -87,16 +87,18 @@
 
 
 
-<meta name="description" content="在客户端与服务器的交互过程中，基于cookie和session的会话管理是较为主流的方式，但是微信的request接口没有携带cookie，所以后端服务器不能识别会话。 但是在微信请求返回的数据中，是可以获取到Set-Cookie 的，所以只要获取到cookie之后，存储在本地缓存中，并在发送请求时将cookie设置到head中即可。 具体的操作如下： 获取微信用户的code并登录12345678">
+<meta name="description" content="在客户端与服务器的交互过程中，基于cookie和session的会话管理是较为主流的方式，但是微信的request接口没有携带cookie，所以后端服务器不能识别会话。 官方推荐的登录时序图如下，需要手动获取session_id,并且每次请求中带上session_id去查找session，比较麻烦。  为了避免每次都要在后端服务器查找sesseion, 就要看微信请求接口中有没有办法获取到cook">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微信小程序中登录态的维护">
 <meta property="og:url" content="http://yoursite.com/2017/06/26/微信小程序中登录态的维护/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="在客户端与服务器的交互过程中，基于cookie和session的会话管理是较为主流的方式，但是微信的request接口没有携带cookie，所以后端服务器不能识别会话。 但是在微信请求返回的数据中，是可以获取到Set-Cookie 的，所以只要获取到cookie之后，存储在本地缓存中，并在发送请求时将cookie设置到head中即可。 具体的操作如下： 获取微信用户的code并登录12345678">
-<meta property="og:updated_time" content="2017-06-25T18:09:38.000Z">
+<meta property="og:description" content="在客户端与服务器的交互过程中，基于cookie和session的会话管理是较为主流的方式，但是微信的request接口没有携带cookie，所以后端服务器不能识别会话。 官方推荐的登录时序图如下，需要手动获取session_id,并且每次请求中带上session_id去查找session，比较麻烦。  为了避免每次都要在后端服务器查找sesseion, 就要看微信请求接口中有没有办法获取到cook">
+<meta property="og:image" content="http://os4rpl68z.bkt.clouddn.com/wechatlogin.png">
+<meta property="og:updated_time" content="2017-06-26T01:35:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信小程序中登录态的维护">
-<meta name="twitter:description" content="在客户端与服务器的交互过程中，基于cookie和session的会话管理是较为主流的方式，但是微信的request接口没有携带cookie，所以后端服务器不能识别会话。 但是在微信请求返回的数据中，是可以获取到Set-Cookie 的，所以只要获取到cookie之后，存储在本地缓存中，并在发送请求时将cookie设置到head中即可。 具体的操作如下： 获取微信用户的code并登录12345678">
+<meta name="twitter:description" content="在客户端与服务器的交互过程中，基于cookie和session的会话管理是较为主流的方式，但是微信的request接口没有携带cookie，所以后端服务器不能识别会话。 官方推荐的登录时序图如下，需要手动获取session_id,并且每次请求中带上session_id去查找session，比较麻烦。  为了避免每次都要在后端服务器查找sesseion, 就要看微信请求接口中有没有办法获取到cook">
+<meta name="twitter:image" content="http://os4rpl68z.bkt.clouddn.com/wechatlogin.png">
 
 
 
@@ -354,7 +356,9 @@
 
       
         <p>在客户端与服务器的交互过程中，基于cookie和session的会话管理是较为主流的方式，但是微信的request接口没有携带cookie，所以后端服务器不能识别会话。</p>
-<p>但是在微信请求返回的数据中，是可以获取到<code>Set-Cookie</code> 的，所以只要获取到<code>cookie</code>之后，存储在本地缓存中，并在发送请求时将<code>cookie</code>设置到<code>head</code>中即可。</p>
+<p>官方推荐的登录时序图如下，需要手动获取<code>session_id</code>,并且每次请求中带上<code>session_id</code>去查找session，比较麻烦。</p>
+<p><img src="http://os4rpl68z.bkt.clouddn.com/wechatlogin.png" alt="wechat_login"></p>
+<p>为了避免每次都要在后端服务器查找<code>sesseion</code>, 就要看微信请求接口中有没有办法获取到<code>cookie</code>信息，在最近的一次更新中，微信在<code>wx.request</code>返回的结果中添加了<code>header</code>，所以只要获取到<code>cookie</code>之后，存储在本地缓存中，并在发送请求时将<code>cookie</code>设置到<code>head</code>中即可。</p>
 <p>具体的操作如下：</p>
 <h2 id="获取微信用户的code并登录"><a href="#获取微信用户的code并登录" class="headerlink" title="获取微信用户的code并登录"></a>获取微信用户的code并登录</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">wx.login(&#123;</div><div class="line">  <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> code = res.code;</div><div class="line">    <span class="keyword">if</span> (code) &#123;</div><div class="line">      login(code)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'login error'</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <h2 id="服务器获取用户信息并记住登录状态"><a href="#服务器获取用户信息并记住登录状态" class="headerlink" title="服务器获取用户信息并记住登录状态"></a>服务器获取用户信息并记住登录状态</h2><p>后台使用了flask，登录用的是flask_login扩展</p>
