@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="note,Python," />
+  <meta name="keywords" content="Python,note," />
 
 
 
@@ -87,14 +87,17 @@
 
 
 
-<meta name="keywords" content="note,Python">
+<meta name="description" content="语法字符串格式化123str = &amp;apos;world&amp;apos;&amp;apos;hello %s&amp;apos; %(name,)&amp;apos;hello &amp;#123;0&amp;#125;.format(str) 不要使用 hello %s %name, 这样当name格式不一致时会报错 推导式列表推导式 {x fo x in range(5)}字典推导式 {key, value for (key, valu">
+<meta name="keywords" content="Python,note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python笔记">
 <meta property="og:url" content="http://yoursite.com/2017/02/27/Python笔记/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:updated_time" content="2017-06-27T10:38:31.000Z">
+<meta property="og:description" content="语法字符串格式化123str = &amp;apos;world&amp;apos;&amp;apos;hello %s&amp;apos; %(name,)&amp;apos;hello &amp;#123;0&amp;#125;.format(str) 不要使用 hello %s %name, 这样当name格式不一致时会报错 推导式列表推导式 {x fo x in range(5)}字典推导式 {key, value for (key, valu">
+<meta property="og:updated_time" content="2017-06-29T07:24:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python笔记">
+<meta name="twitter:description" content="语法字符串格式化123str = &amp;apos;world&amp;apos;&amp;apos;hello %s&amp;apos; %(name,)&amp;apos;hello &amp;#123;0&amp;#125;.format(str) 不要使用 hello %s %name, 这样当name格式不一致时会报错 推导式列表推导式 {x fo x in range(5)}字典推导式 {key, value for (key, valu">
 
 
 
@@ -361,7 +364,40 @@
       
 
       
-        
+        <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="字符串格式化"><a href="#字符串格式化" class="headerlink" title="字符串格式化"></a>字符串格式化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">str = &apos;world&apos;</div><div class="line">&apos;hello %s&apos; %(name,)</div><div class="line">&apos;hello &#123;0&#125;.format(str)</div></pre></td></tr></table></figure>
+<p>不要使用 <code>hello %s</code> %name, 这样当name格式不一致时会报错</p>
+<h2 id="推导式"><a href="#推导式" class="headerlink" title="推导式"></a>推导式</h2><p><strong>列表推导式</strong> <code>{x fo x in range(5)}</code><br><strong>字典推导式</strong> <code>{key, value for (key, value) in iterable}</code></p>
+<h2 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.__superprivate = <span class="string">"Hello"</span></div><div class="line">        self._semiprivate = <span class="string">", world!"</span></div><div class="line">myclass = MyClass()</div><div class="line"><span class="keyword">print</span> myclass._semiprivate  <span class="comment">#, world!</span></div><div class="line"><span class="keyword">print</span> myclass.__superprivate <span class="comment"># throw exception</span></div><div class="line"><span class="keyword">print</span> myclass.__dict__ <span class="comment"># &#123;'_MyClass__superprivate': 'Hello', '_semiprivate': ', world!'&#125;</span></div></pre></td></tr></table></figure>
+<p><code>__foo__</code>:一种约定,Python内部的名字,用来区别其他用户自定义的命名,以防冲突.</p>
+<p><code>_foo</code>:一种约定,用来指定变量私有.程序员用来指定私有变量的一种方式.</p>
+<p><code>__foo</code>:这个有真正的意义:解析器用_classname__foo来代替这个名字,以区别和其他类相同的命名.</p>
+<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">no_argument_decorator</span><span class="params">(function)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">        function(*args, **kwargs)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> wrapper</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">with_argument_decorator</span><span class="params">(str)</span>:</span></div><div class="line">    <span class="keyword">print</span> str</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(function)</span>:</span></div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">            function(*args, **kwargs)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> wrapper</div><div class="line"></div><div class="line">    <span class="keyword">return</span> decorator</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@with_argument_decorator('dsds')</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_function</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">    <span class="keyword">print</span> args, kwargs</div><div class="line"></div><div class="line"></div><div class="line">my_function(<span class="string">'hello'</span>, value=<span class="string">'world'</span>)</div></pre></td></tr></table></figure>
+<h2 id="new-style-and-old-style"><a href="#new-style-and-old-style" class="headerlink" title="new-style and old-style"></a>new-style and old-style</h2><p>Python3中全部为新式类</p>
+<p><strong>区别</strong></p>
+<ul>
+<li>新式类<code>__class__</code>和<code>type</code>都返回 <code>__main__.ClassName</code></li>
+<li>旧式类<code>__class__</code> 返回 <code>__main__.ClassName</code>，<code>type</code>返回<code>&lt;type &#39;instance&#39;&gt;</code></li>
+<li>新式类继承时广度优先，旧式类继承时深度优先</li>
+</ul>
+<p><strong>解决方法</strong></p>
+<ul>
+<li>声明<code>__metaclass__ = type</code></li>
+<li>继承新式类</li>
+</ul>
+<h2 id="new-and-init"><a href="#new-and-init" class="headerlink" title="__new__ and __init__"></a><code>__new__</code> and <code>__init__</code></h2><ul>
+<li><code>__new__</code>为静态方法，返回实例，用来创建实例，实例创建完之后再执行<code>__init__</code></li>
+<li><code>__init__</code>为实例方法，初始化实例属性值</li>
+</ul>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p><strong>使用<code>__new__</code>返回同一个_instance</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kw)</span>:</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(cls, <span class="string">'_instance'</span>):</div><div class="line">            cls._instance = super(Singleton, cls).__new__(cls, *args, **kw)</div><div class="line">        <span class="keyword">return</span> cls._instance</div></pre></td></tr></table></figure>
+<p><strong><code>__dict__</code>指向同一处</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span><span class="params">(object)</span>:</span></div><div class="line">    _value = &#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kw)</span>:</span></div><div class="line">        _instance = super(Singleton, cls).__new__(cls, *args, **kw)</div><div class="line">        _instance.__dict__ = cls._value</div><div class="line">        <span class="keyword">return</span> _instance</div></pre></td></tr></table></figure>
+<p><strong>装饰器</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">singleton</span><span class="params">(cls, *args, **kw)</span>:</span></div><div class="line">    instances = &#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getinstance</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">if</span> cls <span class="keyword">not</span> <span class="keyword">in</span> instances:</div><div class="line">            instances[cls] = cls(*args, **kw)</div><div class="line">        <span class="keyword">return</span> instances[cls]</div><div class="line">    <span class="keyword">return</span> getinstance</div><div class="line"></div><div class="line"><span class="meta">@singleton</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>:</span></div><div class="line">  ...</div></pre></td></tr></table></figure>
+<p><strong>拷贝</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> copy</div><div class="line">copy.copy() <span class="comment">#浅拷贝， 只拷贝对象的值，如果对象里面有对象，只会拷贝引用</span></div><div class="line">copy.deepcopy() <span class="comment">#深拷贝，对象里面的对象也会进行拷贝</span></div></pre></td></tr></table></figure>
+<p>​    </p>
+
       
     </div>
 
@@ -390,9 +426,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/note/" rel="tag"># note</a>
-          
             <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -411,8 +447,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/23/mongoengine使用/" rel="prev" title="mongoengine使用">
-                mongoengine使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/29/Python collections/" rel="prev" title="Python collections">
+                Python collections <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -460,8 +496,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -476,7 +521,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -498,7 +543,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -523,6 +568,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#语法"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串格式化"><span class="nav-number">1.1.</span> <span class="nav-text">字符串格式化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推导式"><span class="nav-number">1.2.</span> <span class="nav-text">推导式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下划线"><span class="nav-number">1.3.</span> <span class="nav-text">下划线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器"><span class="nav-number">1.4.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-style-and-old-style"><span class="nav-number">1.5.</span> <span class="nav-text">new-style and old-style</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-and-init"><span class="nav-number">1.6.</span> <span class="nav-text">__new__ and __init__</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式"><span class="nav-number">1.7.</span> <span class="nav-text">单例模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

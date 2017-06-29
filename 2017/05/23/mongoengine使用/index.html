@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="note,Python,MongoDB,database," />
+  <meta name="keywords" content="Python,note,MongoDB,database," />
 
 
 
@@ -87,14 +87,17 @@
 
 
 
-<meta name="keywords" content="note,Python,MongoDB,database">
+<meta name="description" content="查询ReferenceField12345class A(Document):	name = StringField()class B(Document):	name = StringField()	a = ReferenceField(&apos;A&apos;) 在查询B时如果其中一个条件为A，需要分两步查询： 12a_list = A.objects(name=&apos;John&apos;)b_list = B.objects">
+<meta name="keywords" content="Python,note,MongoDB,database">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongoengine使用">
 <meta property="og:url" content="http://yoursite.com/2017/05/23/mongoengine使用/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:updated_time" content="2017-06-27T10:43:39.000Z">
+<meta property="og:description" content="查询ReferenceField12345class A(Document):	name = StringField()class B(Document):	name = StringField()	a = ReferenceField(&apos;A&apos;) 在查询B时如果其中一个条件为A，需要分两步查询： 12a_list = A.objects(name=&apos;John&apos;)b_list = B.objects">
+<meta property="og:updated_time" content="2017-06-28T01:13:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongoengine使用">
+<meta name="twitter:description" content="查询ReferenceField12345class A(Document):	name = StringField()class B(Document):	name = StringField()	a = ReferenceField(&apos;A&apos;) 在查询B时如果其中一个条件为A，需要分两步查询： 12a_list = A.objects(name=&apos;John&apos;)b_list = B.objects">
 
 
 
@@ -361,7 +364,10 @@
       
 
       
-        
+        <h3 id="查询ReferenceField"><a href="#查询ReferenceField" class="headerlink" title="查询ReferenceField"></a>查询ReferenceField</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(Document)</span>:</span></div><div class="line">	name = StringField()</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(Document)</span>:</span></div><div class="line">	name = StringField()</div><div class="line">	a = ReferenceField(<span class="string">'A'</span>)</div></pre></td></tr></table></figure>
+<p>在查询B时如果其中一个条件为A，需要分两步查询：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a_list = A.objects(name=<span class="string">'John'</span>)</div><div class="line">b_list = B.objects(a__in=a_list)</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -390,9 +396,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/note/" rel="tag"># note</a>
-          
             <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/note/" rel="tag"># note</a>
           
             <a href="/tags/MongoDB/" rel="tag"># MongoDB</a>
           
@@ -409,8 +415,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/27/Python笔记/" rel="next" title="Python笔记">
-                <i class="fa fa-chevron-left"></i> Python笔记
+              <a href="/2017/03/29/Python collections/" rel="next" title="Python collections">
+                <i class="fa fa-chevron-left"></i> Python collections
               </a>
             
           </div>
@@ -468,8 +474,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -484,7 +499,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -506,7 +521,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -531,6 +546,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询ReferenceField"><span class="nav-number">1.</span> <span class="nav-text">查询ReferenceField</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
